@@ -1,41 +1,62 @@
-# Format de fichier d2i
+# Fichiers D2I
 
-Le format de fichier d2i est un format créé par Ankama qui a pour but de stocker des chaines de caractères (nom des items, dialogues des pnjs, ...) correspondant à des clés, ce sont les fichiers "lang" du client.
+---
 
-### La structure d’un fichier d2i
-* L'index des indexes (int)
-* Les données (chaînes de caractères UTF-8 précédées de leur longueur)
-* La taille en octets de la table des indexes (int)  
-* La table des indexes
-    * [--Répétition des 4 prochains points jusqu'à la fin du fichier--]
-    * La clé (int)
-    * Indicateur diacritique (bool)
-    * Le pointeur (int)
-    * Le pointeur diacritique (int) (non représenté sur le schéma)
+## Introduction 
 
-note : dans la représentation ci-dessous il est considéré qu'aucune des données ne comporte de chaine diacritique
-![structure](../resources/format-fichiers/d2i/d2i-structure.png)
+Le format D2I est un format utilisé par Ankama pour stocker des chaînes de caractères \(string\) comme par exemple les noms d’items ou dialogues et plus. Ce fichier varie en fonction de la langue mais la structure reste la même.
 
-### L'index des indexes
+## La Structure
 
-Correspond à l'offset de la table des indexes.
+###     _Le Fichier_
 
-### Les données
+Le fichier est lui composé en 4 majeures parties:
 
-Les données sont des chaînes de caractères au format UTF-8. Chaque chaîne est précédée de sa longueur sur deux octets (short).
+* Les Datas
+* Les Indexes
+* Les UI Messages
+* de l'extra data
 
-### La table des indexes
+Chacune des ces parties sont composées d'un Index \(**4 bytes**\) donnant la taille des données qui suivent hormis l'extra data.
 
-La taille (en octets) de la table des indexes puis les indexes.
+###     _Les Datas_
 
-### Les indexes
+Les datas sont eux composés de 3 parties:
 
-Les indexes sont composés de 3 ou 4 éléments :
+* Taille de tous les datas \(**4 bytes**\)
+* Taille de la chaîne de caractères \(**2 bytes orange**\)
+* La chaîne de caractères en UTF-8 \(**X bytes gris**\)
 
-1. La clé : Appelée par exemple dans les fichiers d2o, c'est l'identifiant de la donnée.
-2. Indicateur diacritique : Indique s'il existe une donnée diacritique pour cette clé.
-3. Pointeur : Emplacement de la chaine dans le fichier.
-4. Pointeur diacritique : Emplacement de la chaine diacritique dans le fichier, si l'indicateur diacritique est à true.
+![](/Screens/data.PNG)
 
-# Informations supplémentaires
-- [Définition du terme : diacritique](https://fr.wikipedia.org/wiki/Diacritique)
+###     _Les indexes_
+
+Les Indexes eux depuis la mise à jour 2.4X sont plus complexe avec l'introduction des diacritiques \( la chaîne de caractères sans accents ou majuscules\).
+
+* Taille de tous les indexes \(**4 bytes**\)
+* l'ID de la chaîne ; généralement appelé dans les d2o \(**4 bytes orange**\)
+* Diacritique existant? \(**boolean**\)\(**1 byte bleu clair**\)
+* Pointeur vers la chaîne \(**4 bytes marron**\)
+* Si diacritique existe Pointeur vers la chaîne diacritique \(**4 bytes bleu marine**\)
+
+![](/Screens/indexes.PNG)
+
+###     _Les UI messages_
+
+Les UI messages sont des messages qui sont donnés dans certain paquets mais qui ne permette pas d'avoir un ID \(integer qui pointe vers le texte\)
+
+**Example:** ui.message.check0
+
+
+
+###     _L'extra data_
+
+N'ayant pas vraiment eu le temps de me pencher dessus je ne sais pas son contenue ou son utilité pour l'instant.
+
+###     _Schéma_
+
+![](/Screens/total.PNG)
+
+
+
+### 

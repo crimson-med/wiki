@@ -27,7 +27,7 @@ Les datas sont eux composés de 3 parties:
 * Taille de la chaîne de caractères \(**2 bytes orange**\)
 * La chaîne de caractères en UTF-8 \(**X bytes gris**\)
 
-![](/Screens/data.PNG)
+![](/pages/Screens/data.PNG)
 
 ###     _Les indexes_
 
@@ -39,7 +39,7 @@ Les Indexes eux depuis la mise à jour 2.4X sont plus complexe avec l'introducti
 * Pointeur vers la chaîne \(**4 bytes marron**\)
 * Si diacritique existe Pointeur vers la chaîne diacritique \(**4 bytes bleu marine**\)
 
-![](/Screens/indexes.PNG)
+![](/pages/Screens/indexes.PNG)
 
 ###     _Les UI messages_
 
@@ -55,7 +55,7 @@ N'ayant pas vraiment eu le temps de me pencher dessus je ne sais pas son contenu
 
 ###     _Schéma_
 
-![](/Screens/total.PNG)
+![](/pages/Screens/total.PNG)
 
 
 
